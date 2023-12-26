@@ -27,16 +27,16 @@ export default function SimpleBottomNavigation() {
         value={value}
         onChange={(event, newValue) => {
           setValue(newValue);
-          if(newValue==0){
+          if(newValue===0){
             navigate('/trending')
           }
-          if(newValue==1){
+          if(newValue===1){
             navigate('/movies')
           }
-          if(newValue==2){
+          if(newValue===2){
             navigate('/series')
           }
-          if(newValue==3){
+          if(newValue===3){
             navigate('/search')
           }
         }}

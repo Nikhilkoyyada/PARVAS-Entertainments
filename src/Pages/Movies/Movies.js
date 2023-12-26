@@ -31,7 +31,7 @@ const Movies = () => {
   useEffect(() => {
     fetchmovies()
   
-  }, [page,urlgener])
+  }, [page,urlgener, fetchmovies])
   
   return (
     <>

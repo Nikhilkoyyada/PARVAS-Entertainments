@@ -20,7 +20,7 @@ import { Custompagination } from '../../Componenets/Pagination/Custompagination'
     
     fetch();
     
-  }, [page]);
+  }, [page,fetch]);
  
   return (
     <>

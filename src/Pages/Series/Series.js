@@ -30,7 +30,7 @@ const Series = () => {
     useEffect(() => {
       fetchmovies()
     
-    }, [page,urlgener])
+    }, [page,urlgener, fetchmovies])
     
     return (
       <>
