@@ -1,8 +1,5 @@
-
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-
 import React, { useState, useEffect, useCallback } from 'react';
 import './Singlepage.css';
 import Badge from '@mui/material/Badge';
@@ -12,57 +9,46 @@ import axios from 'axios';
 import DialogContent from '@mui/material/DialogContent';
 import { unavailable } from '../../Config/Config';
 
-
-const Singlepage = ({ voteaverage, id, poster, title, date, media_type  }) => {
-  
+const Singlepage = ({ voteaverage, id, poster, title, date, media_type }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [video, setVideo] = useState();
 
-  
+  const fetchVideo = useCallback(async () => {
+    try {
+      const { data } = await axios.get(
+        `https://api.themoviedb.org/3/${media_type}/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
+      );
 
-    const fetchVideo = useCallback(async () => {
-      try {
-        const { data } = await axios.get(
-          `https://api.themoviedb.org/3/${media_type}/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
-        );
-    
-        setVideo(data.results[0]?.key);
-        console.log(data);
-      } catch (error) {
-        console.error('Error fetching video:', error);
-      }
-    },[])
-    
-  
-  
-  
+      setVideo(data.results[0]?.key);
+      console.log(data);
+    } catch (error) {
+      console.error('Error fetching video:', error);
+    }
+  }, [id, media_type]); // Include "id" and "media_type" in the dependency array
 
+  const handleWatchTrailer = () => {
+    if (video) {
+      const youtubeUrl = `https://www.youtube.com/watch?v=${video}`;
+      window.open(youtubeUrl, '_blank');
+    } else {
+      console.warn('No video available');
+      toast.warn('No video available', {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    }
+  };
 
-
-    const handleWatchTrailer = () => {
-      if (video) {
-        const youtubeUrl = `https://www.youtube.com/watch?v=${video}`;
-        window.open(youtubeUrl, '_blank');
-      } else {
-        console.warn('No video available');
-        toast.warn('No video available', {
-          position: toast.POSITION.BOTTOM_RIGHT,
-          autoClose: 3000, // Adjust the duration as needed
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
-      }
-    };
-    
-  
   useEffect(() => {
     fetchVideo();
-  },  [id, media_type,fetchVideo]);
+  }, [id, media_type, fetchVideo]);
 
   return (
-    <div  className={`content-container ${isHovered ? 'hovered' : ''}`}onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+    <div className={`content-container ${isHovered ? 'hovered' : ''}`} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
       <div className='badge-container'>
         <Badge badgeContent={voteaverage} color={voteaverage > 7 ? 'secondary' : 'primary'}></Badge>
       </div>
@@ -81,7 +67,7 @@ const Singlepage = ({ voteaverage, id, poster, title, date, media_type  }) => {
         </div>
       )}
 
-      <Dialog >
+      <Dialog>
         <DialogTitle>{title}</DialogTitle>
         <DialogContent>
           <img className='modalPoster' src={poster ? `https://image.tmdb.org/t/p/w300${poster}` : unavailable} alt={title} />

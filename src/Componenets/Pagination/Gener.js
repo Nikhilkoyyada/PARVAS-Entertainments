@@ -1,9 +1,6 @@
-
- import axios from 'axios'
- import React from 'react'
- import Chip from '@mui/material/Chip';
-import { useEffect } from 'react';
-
+import axios from 'axios';
+import React, { useEffect } from 'react';
+import Chip from '@mui/material/Chip';
 
 const Gener = ({
   type,
@@ -22,21 +19,22 @@ const Gener = ({
     setGenere([...genere, genre]);
   };
 
-  const fetchgener = async () => {
-    try {
-      const { data } = await axios.get(
-        `https://api.themoviedb.org/3/genre/movie/list?api_key=9849511ac6cdd6e184258727e15595ec&language=en-US`
-      );
-      setGenere(data.genres);
-      console.log(data.genres);
-    } catch (error) {
-      console.error('Error fetching genres:', error);
-    }
-  };
-
   useEffect(() => {
-    fetchgener();
-  }, [fetchgener]); // Include fetchgener in the dependency array
+    const fetchgener = async () => {
+      try {
+        const { data } = await axios.get(
+          `https://api.themoviedb.org/3/genre/movie/list?api_key=9849511ac6cdd6e184258727e15595ec&language=en-US`
+        );
+        setGenere(data.genres);
+        console.log(data.genres);
+      } catch (error) {
+        console.error('Error fetching genres:', error);
+      }
+    };
+
+    fetchgener(); // Call fetchgener inside the useEffect callback
+
+  }, [setGenere]); // Include setGenere in the dependency array
 
   return (
     <>
