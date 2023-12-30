@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+
 import './App.css';
 import { Header } from './Componenets/header/Header';
 import SimpleBottomNavigation from './Componenets/Bottomnavigation';
