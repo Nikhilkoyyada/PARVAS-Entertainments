@@ -1,7 +1,6 @@
 
 import axios from 'axios'
-import React, { useEffect } from 'react'
-import { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import  Singlepage  from '../Trending/Singlepage';
 import './Series.css'
 import { Custompagination } from '../../Componenets/Pagination/Custompagination';
@@ -14,7 +13,7 @@ const Series = () => {
     const [selectedGenre, setSelectedGenre] = useState([])
     const [numOfPages, setNumOfPages] = useState(1);
     const urlgener=Usegenre(selectedGenre)
-    const fetchmovies=async()=>{
+    const fetchmovies= useCallback(async () =>{
       try{
       const {data}=await axios.get(`https://api.themoviedb.org/3/discover/tv?api_key=${process.env.REACT_APP_API_KEY}&include_adult=false&include_video=false&language=en-US&page=${page}&with_genres=${urlgener}`)
     console.log(data.results)
@@ -26,7 +25,7 @@ const Series = () => {
     catch{
     console.log("error");
     }
-  }
+  },[])
     useEffect(() => {
       fetchmovies()
     

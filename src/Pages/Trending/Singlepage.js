@@ -2,7 +2,8 @@
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import React, { useState, useEffect } from 'react';
+
+import React, { useState, useEffect, useCallback } from 'react';
 import './Singlepage.css';
 import Badge from '@mui/material/Badge';
 import Dialog from '@mui/material/Dialog';
@@ -19,7 +20,7 @@ const Singlepage = ({ voteaverage, id, poster, title, date, media_type  }) => {
 
   
 
-    const fetchVideo = async () => {
+    const fetchVideo = useCallback(async () => {
       try {
         const { data } = await axios.get(
           `https://api.themoviedb.org/3/${media_type}/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
@@ -30,7 +31,7 @@ const Singlepage = ({ voteaverage, id, poster, title, date, media_type  }) => {
       } catch (error) {
         console.error('Error fetching video:', error);
       }
-    };
+    },[])
     
   
   

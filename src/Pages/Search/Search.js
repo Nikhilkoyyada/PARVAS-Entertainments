@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import TextField from '@mui/material/TextField';
 import PageviewIcon from '@mui/icons-material/Pageview';
 import "./Search.css"
@@ -16,7 +16,7 @@ const Search = () => {
   const [numOfPages, setNumOfPages] = useState(1);
   const [search,setSearch]=useState("");
   const [Content , setContent]=useState()
-  const fetchSearch = async () => {
+  const fetchSearch= useCallback(async () => {
     const { data } = await axios.get(
            `https://api.themoviedb.org/3/search/${type ? "tv" : "movie"}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&query=${search}&page=${page}&include_adult=false`
     );
@@ -25,7 +25,7 @@ const Search = () => {
      setContent(data.results)
      setNumOfPages(data.total_pages);
    
-  };
+  },[])
   useEffect(() => {
     window.scroll(0, 0);
     fetchSearch();
