@@ -1,6 +1,6 @@
 
 import './App.css';
-import { Header } from './Componenets/header/Header';
+import {Header} from './Componenets/header/Header'
 import SimpleBottomNavigation from './Componenets/Bottomnavigation';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
