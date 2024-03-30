@@ -1,4 +1,7 @@
 # Getting Started with Create React App
+![Screenshot (287)](https://github.com/Nikhilkoyyada/PARVAS-Entertainments/assets/134193407/b6c2e8b4-5a75-4b91-b61e-e686bc65e8bd)
+![Screenshot (288)](https://github.com/Nikhilkoyyada/PARVAS-Entertainments/assets/134193407/320217b8-d45b-4ace-ab33-2c3ed8c574b4)
+
 Live site: https://parvas.netlify.app
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
